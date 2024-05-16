@@ -234,10 +234,13 @@ async function loadAndViewImage(imageId) {
 }
 
 function downloadAndView(downloadUrl) {
-  let url = downloadUrl || document.getElementById('wadoURL').value;
+  // let url = downloadUrl || document.getElementById('wadoURL').value;
+  let url = "http://172.16.204.218:3002/dicomweb/wado-uri?requestType=WADO&studyUID=1.2.840.113619.2.404.3.1689058051.333.1685695404.112&seriesUID=1.2.840.113619.2.404.3.1689058051.333.1685695404.345&contentType=application%2Fdicom&objectUID=1.2.840.113619.2.404.3.1689058051.333.1685695404.347.84"
 
   // prefix the url with wadouri: so cornerstone can find the image loader
   url = 'wadouri:' + url;
+
+  console.log(url)
 
   // image enable the dicomImage element and activate a few tools
   loadAndViewImage(url);

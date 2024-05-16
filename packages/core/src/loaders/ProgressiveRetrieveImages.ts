@@ -176,6 +176,7 @@ class ProgressiveRetrieveImagesInstance {
     uncompressedIterator
       .forEach(async (image, done) => {
         const oldStatus = this.imageQualityStatusMap.get(imageId);
+
         if (!image) {
           console.warn('No image retrieved', imageId);
           return;

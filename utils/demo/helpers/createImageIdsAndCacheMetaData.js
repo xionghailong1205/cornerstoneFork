@@ -51,6 +51,10 @@ export default async function createImageIdsAndCacheMetaData({
   }
 
   const modality = instances[0][MODALITY].Value[0];
+
+  console.log(modality)
+
+
   let imageIds = instances.map((instanceMetaData) => {
     const SeriesInstanceUID = instanceMetaData[SERIES_INSTANCE_UID].Value[0];
     const SOPInstanceUIDToUse =

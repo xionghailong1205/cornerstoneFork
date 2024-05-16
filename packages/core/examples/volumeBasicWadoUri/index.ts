@@ -3,6 +3,7 @@ import {
   Types,
   Enums,
   volumeLoader,
+  metaData,
 } from '@cornerstonejs/core';
 import {
   initDemo,
@@ -10,6 +11,8 @@ import {
   setCtTransferFunctionForVolumeActor,
   wadoURICreateImageIds,
 } from '../../../../utils/demo/helpers';
+
+import { ctVoiRange } from '../../../../utils/demo/helpers';
 
 // This is for debugging purposes
 console.warn(
@@ -53,7 +56,7 @@ async function run() {
     type: ViewportType.ORTHOGRAPHIC,
     element,
     defaultOptions: {
-      orientation: Enums.OrientationAxis.SAGITTAL,
+      orientation: Enums.OrientationAxis.ACQUISITION,
       background: <Types.Point3>[0.2, 0, 0.2],
     },
   };
@@ -77,11 +80,21 @@ async function run() {
 
   // Set the volume to load
   volume.load();
+  console.log(metaData.get('transferSyntax', imageIds[0]))
+  console.log(metaData.get('voiLutModule', imageIds[0]))
+
+  console.log(viewport.getProperties())
 
   // Set the volume on the viewport
   viewport.setVolumes([
     { volumeId, callback: setCtTransferFunctionForVolumeActor },
   ]);
+
+  viewport.setOrientation(Enums.OrientationAxis.CORONAL);
+
+
+
+  viewport.setProperties({ voiRange: ctVoiRange });
 
   // Render the image
   viewport.render();

@@ -5,6 +5,7 @@ import {
   setTitleAndDescription,
   ctVoiRange,
 } from '../../../../utils/demo/helpers';
+import {wadoURICreateImageIds} from '../../../../utils/demo/helpers';
 
 // This is for debugging purposes
 console.warn(
@@ -36,13 +37,23 @@ async function run() {
   await initDemo();
 
   // Get Cornerstone imageIds and fetch metadata into RAM
-  const imageIds = await createImageIdsAndCacheMetaData({
-    StudyInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463',
-    SeriesInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561',
-    wadoRsRoot: 'https://d3t6nz73ql33tx.cloudfront.net/dicomweb',
-  });
+  // const imageIds = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463',
+  //   SeriesInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561',
+  //   wadoRsRoot: 'https://d3t6nz73ql33tx.cloudfront.net/dicomweb',
+  // });
+
+  // const imageIds = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //     '1.2.840.113619.6.476.306145829699788921213815080524558067149',
+  //   SeriesInstanceUID:
+  //     '1.2.840.113619.2.476.138869320696845249102598031758684709369',
+  //   wadoRsRoot: 'http://172.16.204.218:3002/dicomweb',
+  // });
+
+  const imageIds = wadoURICreateImageIds();
 
   // Instantiate a rendering engine
   const renderingEngineId = 'myRenderingEngine';
@@ -71,6 +82,8 @@ async function run() {
 
   // Set the stack on the viewport
   await viewport.setStack(stack);
+
+  console.log(viewport.getProperties())
 
   // Set the VOI of the stack
   viewport.setProperties({ voiRange: ctVoiRange });

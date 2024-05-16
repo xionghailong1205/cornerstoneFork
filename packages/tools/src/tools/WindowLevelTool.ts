@@ -102,6 +102,8 @@ class WindowLevelTool extends BaseTool {
       return;
     }
 
+    console.log(newRange)
+
     viewport.setProperties({
       voiRange: newRange,
     });

@@ -104,6 +104,10 @@ function createInternalVTKRepresentation(
   volume: IImageVolume
 ): vtkImageDataType {
   const { dimensions, metadata, spacing, direction, origin } = volume;
+  console.log("这段代码执行")
+  // TODO: 我们在这里做了更改
+  console.log(metadata)
+
   const { PhotometricInterpretation } = metadata;
 
   let numComponents = 1;
@@ -162,6 +166,8 @@ function loadVolumeFromVolumeLoader(
 ): IVolumeLoadObject {
   const colonIndex = volumeId.indexOf(':');
   const scheme = volumeId.substring(0, colonIndex);
+  console.log(volumeLoaders)
+
   let loader = volumeLoaders[scheme];
 
   if (loader === undefined || loader === null) {
@@ -243,6 +249,8 @@ export async function createAndCacheVolume(
   volumeId: string,
   options?: VolumeLoaderOptions
 ): Promise<Record<string, any>> {
+  console.log(options)
+
   if (volumeId === undefined) {
     throw new Error(
       'createAndCacheVolume: parameter volumeId must not be undefined'
@@ -481,6 +489,8 @@ export async function createAndCacheVolumeFromImages(
 
   const volumeProps = generateVolumePropsFromImageIds(imageIds, volumeId);
 
+  console.log(volumeProps)
+
   // volume is an empty volume, we need to load the data from the imageIds
   // into the volume scalarData
 
@@ -490,6 +500,8 @@ export async function createAndCacheVolumeFromImages(
     const imageLoadObject = cache.getImageLoadObject(imageId);
 
     return imageLoadObject.promise.then((image) => {
+      console.log(image)
+
       const pixelData = image.getPixelData();
       const offset = imageIdIndex * image.rows * image.columns;
 

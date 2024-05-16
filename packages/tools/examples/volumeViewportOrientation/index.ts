@@ -79,13 +79,29 @@ async function run() {
 
   // Using a oblique acquired image to demonstrate the orientation of the volume
   // in default (acquisition plane mode)
+  // const imageIds = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.871108593056125491804754960339',
+  //   SeriesInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.367700692008930469189923116409',
+  //   wadoRsRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+  // });
+
   const imageIds = await createImageIdsAndCacheMetaData({
     StudyInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.871108593056125491804754960339',
+      '1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463',
     SeriesInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.367700692008930469189923116409',
-    wadoRsRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+      '1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561',
+    wadoRsRoot: 'https://d3t6nz73ql33tx.cloudfront.net/dicomweb',
   });
+
+  // const imageIds = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //     '1.2.840.113619.6.476.306145829699788921213815080524558067149',
+  //   SeriesInstanceUID:
+  //     '1.2.840.113619.2.476.138869320696845249102598031758684709369',
+  //   wadoRsRoot: 'http://172.16.204.218:3002/dicomweb',
+  // });
 
   // create toolGroup
   const toolGroup = ToolGroupManager.createToolGroup('myToolGroup');

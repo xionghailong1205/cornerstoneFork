@@ -179,6 +179,8 @@ export function loadImage(
   imageId: string,
   options: ImageLoaderOptions = { priority: 0, requestType: 'prefetch' }
 ): Promise<IImage> {
+  console.log("函数执行")
+
   if (imageId === undefined) {
     throw new Error('loadImage: parameter imageId must not be undefined');
   }
@@ -508,6 +510,10 @@ export function registerImageLoader(
   scheme: string,
   imageLoader: ImageLoaderFn
 ): void {
+  console.log(scheme)
+
+  console.log("启动了这个函数")
+
   imageLoaders[scheme] = imageLoader;
 }
 /**

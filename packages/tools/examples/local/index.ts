@@ -56,6 +56,7 @@ document
     // number for that file
     const file = e.target.files[0];
     const imageId = cornerstoneDICOMImageLoader.wadouri.fileManager.add(file);
+    console.log(imageId)
     loadAndViewImage(imageId);
   });
 

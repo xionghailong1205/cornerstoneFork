@@ -1,4 +1,4 @@
-import { getEnabledElement, utilities } from '@cornerstonejs/core';
+import { getEnabledElement, metaData, utilities } from '@cornerstonejs/core';
 import { BaseTool } from './base';
 import { MouseWheelEventType } from '../types/EventTypes';
 import scroll from '../utilities/scroll';
@@ -36,6 +36,13 @@ class StackScrollMouseWheelTool extends BaseTool {
 
     const targetId = this.getTargetId(viewport);
     const volumeId = utilities.getVolumeId(targetId);
+
+    console.log(viewport.getProperties().voiRange)
+    let currentImageId = viewport.getCurrentImageId()
+    console.log(currentImageId)
+    const voiLutModule = metaData.get('voiLutModule', currentImageId);
+
+    console.log(voiLutModule)
 
     scroll(viewport, {
       delta,

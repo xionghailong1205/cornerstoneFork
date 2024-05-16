@@ -11,6 +11,7 @@ import {
 } from '../../../../utils/demo/helpers';
 import initCornerstoneDICOMImageLoader from '../../../../utils/demo/helpers/initCornerstoneDICOMImageLoader';
 import { init as csRenderInit } from '@cornerstonejs/core';
+import {wadoURICreateImageIds} from '../../../../utils/demo/helpers';
 
 // This is for debugging purposes
 console.warn(
@@ -31,12 +32,12 @@ element.style.height = '500px';
 content.appendChild(element);
 // ============================= //
 
-const studyUID = '1.3.6.1.4.1.25403.345050719074.3824.20170125112931.11';
+const studyUID = '1.2.840.113619.6.476.306145829699788921213815080524558067149';
 const contentType = 'application%2Fdicom';
-const wadoURIRoot = 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado';
+const wadoURIRoot = 'http://172.16.204.218:3002/dicomweb/wado-uri';
 
-const ctSeriesUID = '1.3.6.1.4.1.25403.345050719074.3824.20170125113028.6';
-const ctObjectUID = '1.3.6.1.4.1.25403.345050719074.3824.20170125113100.3';
+const ctSeriesUID = '1.2.840.113619.2.476.138869320696845249102598031758684709369';
+const ctObjectUID = '1.2.840.113619.2.476.2720845313853366573030549613824443582.1';
 
 const ptSeriesUID = '1.3.6.1.4.1.25403.345050719074.3824.20170125112950.1';
 const ptObjectUID = '1.3.6.1.4.1.25403.345050719074.3824.20170125112959.5';
@@ -49,13 +50,15 @@ const createWADOURIImageId = (params) => {
   return `wadouri:${params.wadoURIRoot}?requestType=WADO&studyUID=${params.studyUID}&seriesUID=${params.seriesUID}&objectUID=${params.objectUID}&contentType=${params.contentType}`;
 };
 
-const ctImageId = createWADOURIImageId({
-  wadoURIRoot,
-  studyUID,
-  seriesUID: ctSeriesUID,
-  objectUID: ctObjectUID,
-  contentType,
-});
+// const ctImageId = createWADOURIImageId({
+//   wadoURIRoot,
+//   studyUID,
+//   seriesUID: ctSeriesUID,
+//   objectUID: ctObjectUID,
+//   contentType,
+// });
+
+const ctImageId = wadoURICreateImageIds()
 
 const ptImageId = createWADOURIImageId({
   wadoURIRoot,
@@ -76,7 +79,7 @@ addButtonToToolbar({
       renderingEngine.getViewport(viewportId)
     );
 
-    viewport.setStack([ctImageId]);
+    viewport.setStack(ctImageId);
   },
 });
 
@@ -122,13 +125,13 @@ async function run() {
   );
 
   // Define a stack containing a single image
-  const stack = [ctImageId];
+  const stack = ctImageId;
 
   // Set the stack on the viewport
   await viewport.setStack(stack);
 
   // Set the VOI of the stack
-  viewport.setProperties({ voiRange: ctVoiRange });
+  // viewport.setProperties({ voiRange: ctVoiRange });
 
   // Render the image
   viewport.render();

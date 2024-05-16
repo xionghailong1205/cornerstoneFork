@@ -183,12 +183,21 @@ async function run() {
   await initDemo();
 
   // Get Cornerstone imageIds and fetch metadata into RAM
+  // const image1 = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463',
+  //   SeriesInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561',
+  //   wadoRsRoot: 'https://d3t6nz73ql33tx.cloudfront.net/dicomweb',
+  // });
+
+  // TODO: 切换为本地
   const image1 = await createImageIdsAndCacheMetaData({
     StudyInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463',
+    '1.2.840.113619.2.404.3.1689058051.333.1685695404.112',
     SeriesInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561',
-    wadoRsRoot: 'https://d3t6nz73ql33tx.cloudfront.net/dicomweb',
+    '1.2.840.113619.2.404.3.1689058051.333.1685695404.345',
+    wadoRsRoot: 'http://172.16.204.218:3002/dicomweb',
   });
 
   // Instantiate a rendering engine

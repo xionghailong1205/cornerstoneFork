@@ -4,6 +4,7 @@ import {
   Enums,
   setVolumesForViewports,
   volumeLoader,
+  metaData,
 } from '@cornerstonejs/core';
 import {
   initDemo,
@@ -14,6 +15,8 @@ import {
 } from '../../../../utils/demo/helpers';
 import * as cornerstoneTools from '@cornerstonejs/tools';
 import addDropDownToToolbar from '../../../../utils/demo/helpers/addDropdownToToolbar';
+import { wadoURICreateImageIds } from '../../../../utils/demo/helpers';
+import { ctVoiRange } from '../../../../utils/demo/helpers';
 
 // This is for debugging purposes
 console.warn(
@@ -78,7 +81,7 @@ instructions.innerText =
 content.append(instructions);
 // ============================= //
 
-let renderingEngine;
+let renderingEngine : RenderingEngine;
 
 const viewportIds = ['CT_AXIAL', 'CT_SAGITTAL', 'CT_OBLIQUE'];
 let activeViewportId = viewportIds[0];
@@ -217,13 +220,26 @@ async function run() {
   toolGroup.setToolActive(StackScrollMouseWheelTool.toolName);
 
   // Get Cornerstone imageIds and fetch metadata into RAM
+  // const imageIds = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //   '1.2.840.113619.2.404.3.1689058051.333.1685695404.112',
+  //   SeriesInstanceUID:
+  //   '1.2.840.113619.2.404.3.1689058051.333.1685695404.345',
+  //   wadoRsRoot: 'http://172.16.204.218:3002/dicomweb',
+  // });
+
   const imageIds = await createImageIdsAndCacheMetaData({
     StudyInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463',
+      "1.2.840.113619.2.404.3.1689058051.333.1685695404.112",
     SeriesInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561',
-    wadoRsRoot: 'https://d3t6nz73ql33tx.cloudfront.net/dicomweb',
+      "1.2.840.113619.2.404.3.1689058051.333.1685695404.345",
+    wadoRsRoot: "http://172.16.204.218:3002/dicomweb",
   });
+
+  // const imageIds = wadoURICreateImageIds()
+
+  // TODO: 更换数据源
+  // const imageIds = wadoURICreateImageIds();
 
   // Instantiate a rendering engine
   const renderingEngineId = 'myRenderingEngine';

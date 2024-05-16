@@ -14,6 +14,7 @@ import {
   addSliderToToolbar,
   camera as cameraHelpers,
   setCtTransferFunctionForVolumeActor,
+  wadoURICreateImageIds,
 } from '../../../../utils/demo/helpers';
 
 // This is for debugging purposes
@@ -60,7 +61,7 @@ addButtonToToolbar({
       renderingEngine.getViewport(viewportId)
     );
 
-    viewport.setProperties({ voiRange: { lower: -1500, upper: 2500 } });
+    viewport.setProperties({ voiRange: { lower: -300,upper: 499 }});
     viewport.render();
   },
 });
@@ -291,13 +292,26 @@ async function run() {
   await initDemo();
 
   // Get Cornerstone imageIds and fetch metadata into RAM
+  // const imageIds = await createImageIdsAndCacheMetaData({
+  //   StudyInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.871108593056125491804754960339',
+  //   SeriesInstanceUID:
+  //     '1.3.6.1.4.1.14519.5.2.1.7009.2403.367700692008930469189923116409',
+  //   wadoRsRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+  // });
+
+  // 本地
   const imageIds = await createImageIdsAndCacheMetaData({
     StudyInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.871108593056125491804754960339',
+      '1.2.840.113619.2.404.3.1689058051.333.1685695404.112',
     SeriesInstanceUID:
-      '1.3.6.1.4.1.14519.5.2.1.7009.2403.367700692008930469189923116409',
-    wadoRsRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+      '1.2.840.113619.2.404.3.1689058051.333.1685695404.345',
+    wadoRsRoot: 'http://172.16.204.218:3002/dicomweb',
   });
+
+  console.log(imageIds[0])
+
+  // const imageIds = wadoURICreateImageIds()
 
   // Instantiate a rendering engine
   const renderingEngine = new RenderingEngine(renderingEngineId);
@@ -332,8 +346,10 @@ async function run() {
   viewport
     .setVolumes([{ volumeId, callback: setCtTransferFunctionForVolumeActor }])
     .then(() => {
+      console.log(viewport.getProperties())
+
       viewport.setProperties({
-        voiRange: { lower: -160, upper: 240 },
+        voiRange: { lower: -150,upper: 450 },
         VOILUTFunction: Enums.VOILUTFunctionType.LINEAR,
         colormap: { name: 'Grayscale' },
         slabThickness: 0.1,

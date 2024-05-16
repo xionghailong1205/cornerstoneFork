@@ -1,5 +1,5 @@
-const windowWidth = 400;
-const windowCenter = 40;
+const windowWidth = 800;
+const windowCenter = 100;
 
 const lower = windowCenter - windowWidth / 2.0;
 const upper = windowCenter + windowWidth / 2.0;
